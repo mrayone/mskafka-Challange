@@ -1,0 +1,16 @@
+{
+  "name": "tracker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev:start": "sucrase-node consumer.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "sucrase": "^3.18.1"
+  },
+  "dependencies": {
+    "kafkajs": "^1.15.0"
+  }
+}
