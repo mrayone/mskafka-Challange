@@ -4,9 +4,9 @@ Projeto com o intuíto de testar a utilização do message broker do kafka para 
 
 ## Estrutura do projeto
 
-- [x]WebApi com express utilizando um producer de mensagens para um microservice.
-- [x]tracker como microsserviço para atuar como consumer das mensagens.
-- [x]Docker-compose como orquestrador da estrutura no ambiente de desenvolvimento.
+- [x] WebApi com express utilizando um producer de mensagens para um microservice.
+- [x] tracker como microsserviço para atuar como consumer das mensagens.
+- [x] Docker-compose como orquestrador da estrutura no ambiente de desenvolvimento.
 
 ## Fontes
 
