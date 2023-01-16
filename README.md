@@ -12,4 +12,4 @@ Projeto com o intuíto de testar a utilização do message broker do kafka para 
 
 - [kafka Doc](https://kafka.apache.org/)
 - [KafkaJS](https://kafka.js.org/)
-- [Code Challenge: Micro-serviços com Node e Kafka](https://www.youtube.com/watch?v=-H8pD7sMcfo)
+- [Top 5 Things Every Apache Kafka Developer Should Know](https://www.confluent.io/blog/5-things-every-kafka-developer-should-know/#tip-1-message-delivery-and-durability)

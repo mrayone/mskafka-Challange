@@ -13,7 +13,8 @@ async function run() {
 
   await consumer.run({
     eachMessage: async ({topic, partition, message})=> {
-      console.log(`${topic} - ${message.value.toString()}`)
+      const prefix = `${topic}[${partition} | ${message.offset}] / ${message.timestamp}`
+      console.log(`${topic} ${prefix} ${JSON.stringify(message.headers)}- ${message?.key}- ${message.value}`)
     }
   })
 }

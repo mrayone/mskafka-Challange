@@ -1,5 +1,5 @@
 import express from 'express';
-import { Kafka } from 'kafkajs';
+import { Kafka, Partitioners } from 'kafkajs';
 import routes from './routes';
 const app = express();
 
@@ -11,7 +11,7 @@ const kafka = new Kafka({
     retries: 8
   }
 })
-const producer = kafka.producer();
+const producer = kafka.producer({createPartitioner: Partitioners.LegacyPartitioner});
 
 async function run() {
   await producer.connect();
