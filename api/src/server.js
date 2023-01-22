@@ -1,15 +1,16 @@
 import express from 'express';
-import { Kafka, Partitioners } from 'kafkajs';
+import { Kafka, Partitioners, logLevel } from 'kafkajs';
 import routes from './routes';
 const app = express();
 
 const kafka = new Kafka({
   clientId: 'api',
   brokers: ['localhost:9092'],
+  logLevel: logLevel.Debug,
   retry: {
     initialRetryTime: 300,
     retries: 8
-  }
+  },
 })
 const producer = kafka.producer({createPartitioner: Partitioners.LegacyPartitioner});
 

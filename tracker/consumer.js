@@ -12,9 +12,13 @@ async function run() {
   await consumer.subscribe({ topic: 'tracker-status', fromBeginning: true })
 
   await consumer.run({
-    eachMessage: async ({topic, partition, message})=> {
+    autoCommit: true,
+    eachMessage: async ({topic, partition, message, heartbeat})=> {
+      // throw Error()
       const prefix = `${topic}[${partition} | ${message.offset}] / ${message.timestamp}`
       console.log(`${topic} ${prefix} ${JSON.stringify(message.headers)}- ${message?.key}- ${message.value}`)
+
+      await heartbeat()
     }
   })
 }
