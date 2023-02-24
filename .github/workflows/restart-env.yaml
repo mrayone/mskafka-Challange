@@ -1,0 +1,55 @@
+name: "Repository enviroments equilize"
+run-name: ${{ inputs.kind_action }} ${{ inputs.enviroment_choice }} by @${{ github.actor }}
+on:
+  workflow_dispatch:
+    inputs:
+      enviroment_choice:
+        description: "Restore branch"
+        required: true
+        type: choice
+        options:
+          - env/qas
+          - env/qas2
+          - env/qas3
+          - env/qas4
+          - env/qas5
+          - env/qas5fix
+          - env/qas6
+      kind_action:
+        description: "Prompt your kind action"
+        required: true
+        type: choice
+        options:
+          - rebase
+          - reset
+jobs:
+  rebase-branch:
+    runs-on: ubuntu-latest
+    if: ${{ inputs.kind_action == 'rebase' }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.enviroment_choice }}
+          fetch-depth: 0
+      - name: reseting branch based main
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout ${{ inputs.enviroment_choice }}
+          git rebase main ${{ inputs.enviroment_choice }}
+          git push --force
+
+  reset-branch:
+    runs-on: ubuntu-latest
+    if: ${{ inputs.kind_action == 'reset' }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: reseting branch based main
+        run: |
+          git config user.name mr-integrations
+          git config user.email maycon.rayone@hotmail.com
+          git checkout ${{ inputs.enviroment_choice }}
+          git reset --hard origin/main
+          git push --force
