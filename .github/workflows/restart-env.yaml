@@ -1,10 +1,10 @@
-name: "Repository enviroments equilize"
-run-name: ${{ inputs.kind_action }} ${{ inputs.enviroment_choice }} by @${{ github.actor }}
+name: "[QAS] branch reset or rebase"
+run-name: ${{ inputs.kind_action }} ${{ inputs.environment_choice }} by @${{ github.actor }}
 on:
   workflow_dispatch:
     inputs:
-      enviroment_choice:
-        description: "Restore branch"
+      environment_choice:
+        description: "Select target branch"
         required: true
         type: choice
         options:
@@ -16,7 +16,7 @@ on:
           - env/qas5fix
           - env/qas6
       kind_action:
-        description: "Prompt your kind action"
+        description: "Select branch option"
         required: true
         type: choice
         options:
@@ -29,16 +29,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ inputs.enviroment_choice }}
           fetch-depth: 0
-      - name: reseting branch based main
+          token: ${{ secrets.GH_TOKEN_MS_CHALLANGE }}
+      - name: rebase branch based on main
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git checkout ${{ inputs.enviroment_choice }}
-          git rebase main ${{ inputs.enviroment_choice }}
+          git checkout ${{ inputs.environment_choice }}
+          git rebase origin/main ${{ inputs.environment_choice }}
           git push --force
-
   reset-branch:
     runs-on: ubuntu-latest
     if: ${{ inputs.kind_action == 'reset' }}
@@ -46,10 +45,11 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: reseting branch based main
+          token: ${{ secrets.GH_TOKEN_MS_CHALLANGE }}
+      - name: reseting branch based on main
         run: |
-          git config user.name mr-integrations
-          git config user.email maycon.rayone@hotmail.com
-          git checkout ${{ inputs.enviroment_choice }}
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout ${{ inputs.environment_choice }}
           git reset --hard origin/main
           git push --force
